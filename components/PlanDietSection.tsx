@@ -1,0 +1,265 @@
+"use client";
+
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Image from "next/image";
+import {
+  FaTruckFast,
+  FaUtensils,
+  FaScaleBalanced,
+  FaClock,
+  FaMagnifyingGlassChart,
+  FaSliders,
+  FaPersonRunning,
+  FaChartLine,
+} from "react-icons/fa6";
+
+const whatYouGet = [
+  { icon: <FaUtensils />, text: "Meals designed per your personal diet plan" },
+  {
+    icon: <FaScaleBalanced />,
+    text: "Fresh, healthy & portion-controlled food",
+  },
+  {
+    icon: <FaTruckFast />,
+    text: "Cooked to support fat loss, muscle gain, or overall fitness",
+  },
+  {
+    icon: <FaClock />,
+    text: "Saves time, removes confusion, and keeps you consistent",
+  },
+];
+
+const howItWorks = [
+  {
+    step: "01",
+    title: "Assess",
+    desc: "Understand your body, lifestyle & goals",
+    pillText: "Body composition analysis + expert consultation",
+    icon: <FaMagnifyingGlassChart />,
+  },
+  {
+    step: "02",
+    title: "Personalize",
+    desc: "Get your custom plan",
+    pillText: "Dietician plan + fitness + sports + mindset coaching",
+    icon: <FaSliders />,
+  },
+  {
+    step: "03",
+    title: "Play & Train",
+    desc: "Show up, move, and enjoy the process",
+    pillText: "Sports, yoga, zumba & guided workouts",
+    icon: <FaPersonRunning />,
+  },
+  {
+    step: "04",
+    title: "Track & Transform",
+    desc: "Stay consistent and see real results",
+    pillText: "Weekly tracking, coach support, visible progress",
+    icon: <FaChartLine />,
+  },
+];
+
+export default function PlanDietSection() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  // -- Scroll logic for the Timeline animation --
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 40%", "end 60%"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const lineHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+
+  return (
+    <section className="bg-(--white-bg) font-sans overflow-hidden">
+      {/* ─── DIET SECTION ─── */}
+      <div className="py-24 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Left Side: Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="space-y-8"
+        >
+          <div className="space-y-4">
+            <h2 className="text-4xl md:text-7xl font-black uppercase text-(--white-text) leading-[0.95]">
+              We Don’t Just Plan Your Diet. <br />
+              <span className="text-(--red) font-[FormulaBold] tracking-wider">
+                We Deliver It
+              </span>
+            </h2>
+            <p className="text-(--white-text) text-lg font-[Helvetica] max-w-lg leading-relaxed">
+              Too Busy and Struggling to Follow Your Diet? We’ll Handle It. With
+              Callories, you don’t have to think about what to eat — we prepare
+              and deliver meals designed specifically for your biology and
+              goals.
+            </p>
+            <h1 className="text-2xl font-[FormulaBold] text-(--white-text) uppercase tracking-wider">
+              What you get :
+            </h1>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {whatYouGet.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-4 group cursor-default"
+              >
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-(--red) group-hover:text-white transition-colors duration-300 shrink-0">
+                  {item.icon}
+                </div>
+                <span className="text-sm font-[Helvetica] text-(--white-text) uppercase leading-tight">
+                  {item.text}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-4">
+            <h1 className="text-2xl font-[FormulaBold] text-(--white-text) uppercase tracking-wider">
+              Why It Works :
+            </h1>
+            <p className="text-(--white-text) text-lg font-[Helvetica] max-w-lg leading-relaxed">
+              When your workouts and diet are aligned, results become faster and
+              more consistent. This is the easiest way to stay on track —
+              without relying on willpower.
+            </p>
+          </div>
+
+          <div className="pt-6 space-y-6">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-(--red) text-white font-black uppercase tracking-widest px-10 py-5 rounded-full shadow-xl"
+            >
+              Join Meal Program
+            </motion.button>
+            <h1 className="text-(--white-text) text-sm font-[Helvetica] max-w-lg leading-relaxed opacity-60">
+              Launching soon — limited early access for Callories members
+            </h1>
+          </div>
+        </motion.div>
+
+        {/* Right Side: Rotating Plate (No Shadows/Overlay) */}
+        <div className="relative flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 2 }}
+            animate={{ rotate: 360 }}
+            transition={{
+              opacity: { duration: 1 },
+              scale: { duration: 1 },
+              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+            }}
+            viewport={{ once: true }}
+            className="relative aspect-square w-full max-w-[550px]"
+          >
+            <Image
+              src="/Img/diet.webp"
+              alt="Healthy Delivery Plate"
+              fill
+              className="object-contain"
+              priority
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ─── HOW IT WORKS SECTION ─── */}
+      <div id="how-it-works" className="bg-(--white-bg) py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-32">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="text-(--red) text-xs font-[Helvetica] uppercase tracking-[0.4em] mb-4 block"
+            >
+              The Process
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-(--white-text)"
+            >
+              How It Works
+            </motion.h2>
+          </div>
+
+          <div ref={timelineRef} className="relative">
+            {/* Track Line */}
+            <div className="absolute top-0 bottom-0 left-[39px] lg:left-1/2 w-[2px] bg-zinc-200 lg:-translate-x-1/2" />
+
+            {/* Animated Line */}
+            <motion.div
+              style={{ height: lineHeight }}
+              className="absolute top-0 left-[39px] lg:left-1/2 w-[2px] bg-(--red) origin-top z-10 lg:-translate-x-1/2"
+            />
+
+            <div className="space-y-24 lg:space-y-0">
+              {howItWorks.map((item, idx) => {
+                const isRight = idx % 2 !== 0;
+
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: isRight ? 40 : -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className={`relative flex items-start w-full lg:h-[300px] group
+                      ${isRight ? "lg:flex-row" : "lg:flex-row-reverse"}
+                    `}
+                  >
+                    {/* Step Circle */}
+                    <div className="shrink-0 relative z-20 mt-1 lg:mt-0 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+                      <div className="w-20 h-20 rounded-full bg-(--white-bg) border-4 border-zinc-100 flex items-center justify-center text-2xl font-black text-(--white-text) group-hover:border-(--red) group-hover:text-(--red) shadow-xl transition-all duration-500">
+                        {idx + 1}
+                      </div>
+                    </div>
+
+                    {/* Content Box */}
+                    <div
+                      className={`flex flex-col gap-3 pl-8 lg:pl-0 lg:w-1/2 
+                      ${isRight ? "lg:pl-20 text-left items-start" : "lg:pr-20 text-right items-end"}
+                    `}
+                    >
+                      <h3 className="text-2xl md:text-5xl font-[FormulaBold] uppercase tracking-wider text-(--white-text) mt-4 lg:mt-0 transition-colors group-hover:text-(--red)">
+                        {item.title}
+                      </h3>
+                      <p className="text-(--white-text) font-[Helvetica] text-sm md:text-lg leading-relaxed max-w-[320px]">
+                        {item.desc}
+                      </p>
+
+                      {/* Pill Tag */}
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        className="mt-6 flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-zinc-100 shadow-sm hover:border-(--red)/40 transition-all cursor-default"
+                      >
+                        <span className="text-(--red) text-xl shrink-0">
+                          {item.icon}
+                        </span>
+                        <span className="text-[12px] font-bold uppercase tracking-widest text-(--white-text)">
+                          {item.pillText}
+                        </span>
+                      </motion.div>
+                    </div>
+
+                    <div className="hidden lg:block lg:w-1/2" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

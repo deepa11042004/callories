@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Formula";
+  src: url(../public/font/FormulaBlack.woff);
+}
+
+@font-face {
+  font-family: "FormulaBold";
+  src: url(../public/font/FormulaBold.woff);
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url(../public/font/HelveticaNeueRoman.woff2);
+}
+
+*{
+  scroll-behavior: smooth;
+}
+
+:root {
+  /* Light Theme */
+  --white-bg: #dededa;
+  --white-text: #041414;
+
+  /* Dark Theme */
+  --dark-bg: #041513;
+  --dark-text: #e1e0e0;
+
+  /* Accent */
+  --red: #e73139;
+
+  /* Glassmorphism */
+  --glass-bg: #0b1618/40;
+}
