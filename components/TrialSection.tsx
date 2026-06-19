@@ -50,6 +50,8 @@ export default function TrialSection() {
             hoverTextColor="group-hover:text-white"
             className="border-(--red) bg-(--red)/10 w-full sm:w-auto"
             href={trialLink}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Start Free Trial
           </BigFillButton>
