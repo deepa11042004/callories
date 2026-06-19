@@ -160,7 +160,7 @@ export default function PlanDietSection() {
               rotate: { duration: 25, repeat: Infinity, ease: "linear" },
             }}
             viewport={{ once: true }}
-            className="relative aspect-square w-full max-w-[550px]"
+            className="relative aspect-square w-full max-w-\[550px\]"
           >
             <Image
               src="/Img/diet.webp"
@@ -195,12 +195,12 @@ export default function PlanDietSection() {
 
           <div ref={timelineRef} className="relative">
             {/* Track Line */}
-            <div className="absolute top-0 bottom-0 left-[39px] lg:left-1/2 w-[2px] bg-zinc-200 lg:-translate-x-1/2" />
+            <div className="absolute top-0 bottom-0 left-\[39px\] lg:left-1/2 w-\[2px\] bg-zinc-200 lg:-translate-x-1/2" />
 
             {/* Animated Line */}
             <motion.div
               style={{ height: lineHeight }}
-              className="absolute top-0 left-[39px] lg:left-1/2 w-[2px] bg-(--red) origin-top z-10 lg:-translate-x-1/2"
+              className="absolute top-0 left-\[39px\] lg:left-1/2 w-\[2px\] bg-(--red) origin-top z-10 lg:-translate-x-1/2"
             />
 
             <div className="space-y-24 lg:space-y-0">
@@ -214,7 +214,7 @@ export default function PlanDietSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
-                    className={`relative flex items-start w-full lg:h-[300px] group
+                    className={`relative flex items-start w-full lg\:h-\[300px\] group
                       ${isRight ? "lg:flex-row" : "lg:flex-row-reverse"}
                     `}
                   >
